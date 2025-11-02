@@ -1,5 +1,6 @@
 import React from 'react';
 import { ExternalLink, Sparkles } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const projects = [
   {
@@ -39,8 +40,14 @@ const projects = [
   { title: 'DSA Algorithm Visualizer', stack: 'React', points: ['Interactive visualizations for sorting and pathfinding.'] }
 ];
 
-const ProjectCard = ({ title, stack, points }) => (
-  <div className="group relative rounded-xl border border-white/10 bg-white/5 p-5 transition hover:bg-white/10">
+const ProjectCard = ({ title, stack, points, index }) => (
+  <motion.div
+    className="group relative rounded-xl border border-white/10 bg-white/5 p-5 transition hover:bg-white/10"
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.2 }}
+    transition={{ duration: 0.45, ease: 'easeOut', delay: Math.min(index * 0.05, 0.4) }}
+  >
     <div className="flex items-start justify-between gap-4">
       <div>
         <h3 className="text-base font-semibold">{title}</h3>
@@ -53,7 +60,7 @@ const ProjectCard = ({ title, stack, points }) => (
         <li key={i}>{p}</li>
       ))}
     </ul>
-  </div>
+  </motion.div>
 );
 
 const Projects = () => {
@@ -73,8 +80,8 @@ const Projects = () => {
         </div>
 
         <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {projects.map((proj) => (
-            <ProjectCard key={proj.title} {...proj} />
+          {projects.map((proj, i) => (
+            <ProjectCard key={proj.title} index={i} {...proj} />
           ))}
         </div>
       </div>

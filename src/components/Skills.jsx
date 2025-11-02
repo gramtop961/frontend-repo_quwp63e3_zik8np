@@ -1,8 +1,33 @@
 import React from 'react';
 import { Cpu, Database, Code, Bot } from 'lucide-react';
+import { motion } from 'framer-motion';
 
-const SkillBadge = ({ label }) => (
-  <span className="rounded-lg border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200">{label}</span>
+const SkillBadge = ({ label, delay = 0 }) => (
+  <motion.span
+    className="rounded-lg border border-white/10 bg-white/5 px-3 py-1 text-sm text-slate-200"
+    initial={{ opacity: 0, y: 8 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.2 }}
+    transition={{ duration: 0.35, delay }}
+  >
+    {label}
+  </motion.span>
+);
+
+const Card = ({ icon: Icon, title, children, delay = 0 }) => (
+  <motion.div
+    className="rounded-xl border border-white/10 bg-white/5 p-5"
+    initial={{ opacity: 0, y: 20, scale: 0.98 }}
+    whileInView={{ opacity: 1, y: 0, scale: 1 }}
+    viewport={{ once: true, amount: 0.2 }}
+    transition={{ duration: 0.5, ease: 'easeOut', delay }}
+  >
+    <div className="mb-3 flex items-center gap-2 text-emerald-300">
+      <Icon className="h-4 w-4" />
+      <h3 className="font-semibold">{title}</h3>
+    </div>
+    {children}
+  </motion.div>
 );
 
 const Skills = () => {
@@ -15,44 +40,38 @@ const Skills = () => {
         </div>
 
         <div className="grid grid-cols-1 gap-6 md:grid-cols-3">
-          <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-            <div className="mb-3 flex items-center gap-2 text-emerald-300">
-              <Cpu className="h-4 w-4" />
-              <h3 className="font-semibold">AI / ML</h3>
-            </div>
+          <Card icon={Cpu} title="AI / ML" delay={0.05}>
             <div className="flex flex-wrap gap-2">
-              {['AI Agents', 'Computer Vision', 'NLP', 'LLM', 'RAG'].map((s) => (
-                <SkillBadge key={s} label={s} />
+              {['AI Agents', 'Computer Vision', 'NLP', 'LLM', 'RAG'].map((s, i) => (
+                <SkillBadge key={s} label={s} delay={0.05 + i * 0.05} />
               ))}
             </div>
-          </div>
+          </Card>
 
-          <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-            <div className="mb-3 flex items-center gap-2 text-emerald-300">
-              <Database className="h-4 w-4" />
-              <h3 className="font-semibold">Data & Tools</h3>
-            </div>
+          <Card icon={Database} title="Data & Tools" delay={0.12}>
             <div className="flex flex-wrap gap-2">
-              {['Python', 'Pandas', 'NumPy', 'scikit-learn'].map((s) => (
-                <SkillBadge key={s} label={s} />
+              {['Python', 'Pandas', 'NumPy', 'scikit-learn'].map((s, i) => (
+                <SkillBadge key={s} label={s} delay={0.12 + i * 0.05} />
               ))}
             </div>
-          </div>
+          </Card>
 
-          <div className="rounded-xl border border-white/10 bg-white/5 p-5">
-            <div className="mb-3 flex items-center gap-2 text-emerald-300">
-              <Code className="h-4 w-4" />
-              <h3 className="font-semibold">Full‑Stack</h3>
-            </div>
+          <Card icon={Code} title="Full‑Stack" delay={0.18}>
             <div className="flex flex-wrap gap-2">
-              {['HTML', 'CSS', 'JavaScript', 'React', 'FastAPI'].map((s) => (
-                <SkillBadge key={s} label={s} />
+              {['HTML', 'CSS', 'JavaScript', 'React', 'FastAPI'].map((s, i) => (
+                <SkillBadge key={s} label={s} delay={0.18 + i * 0.05} />
               ))}
             </div>
-            <div className="mt-3 flex flex-wrap gap-2 text-slate-300">
+            <motion.div
+              className="mt-3 text-slate-300"
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.5, delay: 0.35 }}
+            >
               <span className="text-xs">Soft: Teamwork, Adaptability, Problem Solving, Focus & Diligence</span>
-            </div>
-          </div>
+            </motion.div>
+          </Card>
         </div>
       </div>
     </section>

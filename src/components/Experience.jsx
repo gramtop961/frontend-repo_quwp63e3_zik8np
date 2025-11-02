@@ -1,5 +1,6 @@
 import React from 'react';
 import { Briefcase, GraduationCap, Award } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const SectionTitle = ({ icon: Icon, title }) => (
   <div className="mb-6 flex items-center gap-2">
@@ -9,7 +10,13 @@ const SectionTitle = ({ icon: Icon, title }) => (
 );
 
 const Item = ({ title, org, time, bullets }) => (
-  <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+  <motion.div
+    className="rounded-xl border border-white/10 bg-white/5 p-4"
+    initial={{ opacity: 0, y: 16 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    viewport={{ once: true, amount: 0.2 }}
+    transition={{ duration: 0.45, ease: 'easeOut' }}
+  >
     <div className="flex flex-wrap items-center justify-between gap-2">
       <h3 className="text-base font-semibold">{title}</h3>
       <span className="text-xs text-slate-400">{time}</span>
@@ -22,7 +29,7 @@ const Item = ({ title, org, time, bullets }) => (
         ))}
       </ul>
     )}
-  </div>
+  </motion.div>
 );
 
 const Experience = () => {
@@ -101,7 +108,13 @@ const Experience = () => {
               org="Fusemachines"
               time="Mar 2024 – Nov 2024"
             />
-            <div className="rounded-xl border border-white/10 bg-white/5 p-4">
+            <motion.div
+              className="rounded-xl border border-white/10 bg-white/5 p-4"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 0.2 }}
+              transition={{ duration: 0.45, ease: 'easeOut' }}
+            >
               <h3 className="text-base font-semibold">Certifications</h3>
               <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-slate-300">
                 <li>Fundamentals of AI Agents Using RAG and LangChain — IBM</li>
@@ -113,7 +126,7 @@ const Experience = () => {
                 <li>Machine Learning Specialization — Deeplearning.ai</li>
                 <li>Intermediate Python — DataCamp</li>
               </ul>
-            </div>
+            </motion.div>
           </div>
         </div>
       </div>
